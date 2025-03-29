@@ -18,7 +18,7 @@ kordat[, 9:ncol(kordat)] <- lapply(kordat[, 9:ncol(kordat)], as.factor)
 
 sink("results.txt")
 
-cat("Faktoru līmeņu biežums:\n")
+
 
 for (col in names(kordat)[9:ncol(kordat)]) 
 {
@@ -26,17 +26,17 @@ for (col in names(kordat)[9:ncol(kordat)])
   print(summary(kordat[[col]]))
 }
 sl.by.b <- split(kordat$Slope, kordat$b)
-cat("\nSadalītā Slope pēc b faktora:\n")
+
 print(sl.by.b)
 
 kordat$Average <- rowMeans(kordat[, c("Slope", "Intercept", "adj.r.squared")], na.rm = TRUE)
-cat("\nStandartnovirze (Average) pa f faktora līmeņiem:\n")
+
 std_dev_f <- tapply(kordat$Average, kordat$f, sd, na.rm = TRUE)
 print(std_dev_f)
 
 prockordat <- kordat[kordat$adj.r.squared > 0.7, ]
 prockordat$Slope <- 1 - 1 / prockordat$Slope
-cat("\nFiltrētie un pārveidotie dati (prockordat):\n")
+
 print(prockordat)
 
 sink()
